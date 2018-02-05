@@ -1,3 +1,10 @@
+
+# Created by https://www.gitignore.io/api/c,assembler
+
+### Assembler ###
+*.bc
+
+### C ###
 # Prerequisites
 *.d
 
@@ -50,3 +57,6 @@ modules.order
 Module.symvers
 Mkfile.old
 dkms.conf
+
+
+# End of https://www.gitignore.io/api/c,assembler
