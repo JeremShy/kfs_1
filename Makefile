@@ -38,7 +38,7 @@ $(NAME) : $(OBJ)
 	$(LD) -o $(BIN_NAME) $^ $(C++_FLAGS) -lgcc
 	mkdir -p isodir/boot/grub
 	cp $(BIN_NAME) isodir/boot/$(BIN_NAME)
-	grub-mkrescue -o $(ISO_NAME) $(BIN_NAME)
+	grub-mkrescue -o $(ISO_NAME) isodir
 
 
 $(C++_OBJ_PATH)%.o: $(C++_SRC_PATH)%.c++
@@ -54,5 +54,8 @@ fclean: clean
 	rm -fv $(OBJ)
 	rm -fv $(BIN_NAME)
 	rm -fv $(ISO_NAME)
+
+test: all
+	kvm -m 256 -cdrom $(ISO_NAME) -curses
 
 re: fclean all
