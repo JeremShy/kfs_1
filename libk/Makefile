@@ -1,8 +1,11 @@
-C++_SRC_NAME = putstr.c++
+C++_SRC_NAME = putstr.c++ \
+				strlen.c++ \
+				terminal.c++ \
+				scrollUp.c++
 
 C++_OBJ_NAME = $(C++_SRC_NAME:.c++=.o)
 
-ASM_SRC_NAME =
+ASM_SRC_NAME = # None
 ASM_OBJ_NAME = $(ASM_SRC_NAME:.s=.o)
 
 C++ = i686-elf-g++
@@ -30,21 +33,32 @@ INCLUDE_FLAGS = $(addprefix -I ,$(INCLUDES))
 
 OBJ = $(C++_OBJ) $(ASM_OBJ)
 
+ccred = \033[0;31m
+cccyan = \033[0;36m
+ccgreen = \033[0;32m
+ccend = \033[0m
+
 all: $(NAME)
 
+PRINT = a
+
 $(NAME): $(OBJ)
-	ar r $(NAME) $^
+	@ar r $(NAME) $^ >&- 2>&-
+	@/bin/echo -e '$(ccred)'libk'$(ccend)': Compiled.'\n'
 
 $(C++_OBJ_PATH)%.o: $(C++_SRC_PATH)%.c++
-	$(C++) $(C++_FLAGS) $(INCLUDE_FLAGS) -c $< -o $@
+	@printf "$(ccred)libk$(ccend): Compiling...\n"
+	@$(C++) $(C++_FLAGS) $(INCLUDE_FLAGS) -c $< -o $@
+	@/bin/echo -e '$(ccred)'libk'$(ccend)':'\t''$(ccgreen)'[C]'$(ccend)' : $<
 
 $(ASM_OBJ_PATH)%.o: $(ASM_SRC_PATH)%.s
-	$(ASM) $< -o $@
+	@$(ASM) $< -o $@
+	@/bin/echo -e '$(ccred)'libk'$(ccend)':'\t''$(ccgreen)'[ASM]'$(ccend)' : $<
 
 clean:
-	rm -fv $(OBJ)
+	@rm -fv $(OBJ)
 
 fclean: clean
-	rm -fv $(NAME)
+	@rm -fv $(NAME)
 
 re: fclean all
