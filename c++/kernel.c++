@@ -1,6 +1,6 @@
 #include <stdbool.h>
 #include <stddef.h>
-
+#include <libk.h>
 
 typedef unsigned char uint8_t;
 typedef unsigned short uint16_t;
@@ -139,9 +139,18 @@ void terminal_write(const char* data, size_t size)
 		terminal_putchar(data[i]);
 }
 
-void terminal_writestring(const char* data)
+void putstr(const char* data)
 {
 	terminal_write(data, strlen(data));
+}
+
+void putstr_color(const char *data, uint8_t color)
+{
+	uint8_t oldcolor = terminal_color;
+
+	terminal_setcolor(color);
+	putstr(data);
+	terminal_setcolor(oldcolor);
 }
 
 extern "C" void kernel_main(void)
@@ -150,6 +159,5 @@ extern "C" void kernel_main(void)
 	terminal_initialize();
 
 	/* Newline support is left as an exercise. */
-	terminal_writestring("Hello, kernel World!\npouet\ncaca\ncaca\ncaca\ncaca\ncaca\ncaca\ncaca\ncaca\ncaca\ncaca\ncaca\ncaca\ncaca\ncaca\ncaca\ncaca\ncaca\ncaca\ncaca\ncaca\ncaca");
-	scrollUp();
+	putstr_color("Hello, kernel World!", VGA_COLOR_CYAN);
 }
