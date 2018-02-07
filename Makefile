@@ -68,6 +68,7 @@ fclean: clean
 	@rm -fv $(OBJ)
 	@rm -fv $(BIN_NAME)
 	@rm -fv $(ISO_NAME)
+	@rm -fv isodir/boot/$(BIN_NAME)
 
 test: all
 	kvm -m 256 -cdrom $(ISO_NAME) -curses

@@ -2,5 +2,5 @@
 
 void putstr(const char* data)
 {
-	int i = 2;
+	terminal_write(data, strlen(data));
 }

@@ -1,7 +1,8 @@
 C++_SRC_NAME = putstr.c++ \
 				strlen.c++ \
 				terminal.c++ \
-				scrollUp.c++
+				scrollUp.c++ \
+				putstr_color.c++
 
 C++_OBJ_NAME = $(C++_SRC_NAME:.c++=.o)
 
