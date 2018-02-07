@@ -41,14 +41,11 @@ ccend = \033[0m
 
 all: $(NAME)
 
-PRINT = a
-
 $(NAME): $(OBJ)
 	@ar r $(NAME) $^ >&- 2>&-
 	@/bin/echo -e '$(ccred)'libk'$(ccend)': Compiled.'\n'
 
 $(C++_OBJ_PATH)%.o: $(C++_SRC_PATH)%.c++
-	@printf "$(ccred)libk$(ccend): Compiling...\n"
 	@$(C++) $(C++_FLAGS) $(INCLUDE_FLAGS) -c $< -o $@
 	@/bin/echo -e '$(ccred)'libk'$(ccend)':'\t''$(ccgreen)'[C]'$(ccend)' : $<
 

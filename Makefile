@@ -38,7 +38,7 @@ ccend = \033[0m
 all: lib $(NAME)
 
 $(NAME) : $(OBJ) libk.a
-	$(LD) -o $(BIN_NAME) $(OBJ) $(C++_FLAGS) -L. -lk
+	@$(LD) -o $(BIN_NAME) $(OBJ) $(C++_FLAGS) -L. -lk
 	@/bin/echo -e '$(ccred)'kernel'$(ccend)': Compiled and linked.'\n'
 	@mkdir -p isodir/boot/grub
 	@cp $(BIN_NAME) isodir/boot/$(BIN_NAME)
@@ -53,11 +53,11 @@ lib:
 $(C++_OBJ_PATH)%.o: $(C++_SRC_PATH)%.c++
 	@/bin/echo -e '\r''$(ccred)'kernel'$(ccend)': Compiling...
 	@$(C++) $(C++_FLAGS) $(INCLUDE_FLAGS) -c $< -o $@
-	@/bin/echo -e '$(ccgreen)'[C]'$(ccend)' : $<
+	@/bin/echo -e '$(ccgreen)'[C]'$(ccend)': $<
 
 $(ASM_OBJ_PATH)%.o: $(ASM_SRC_PATH)%.s
 	@$(ASM) $< -o $@
-	@/bin/echo -e '$(cccyan)'[ASM]'$(ccend)' : $<
+	@/bin/echo -e '$(cccyan)'[ASM]'$(ccend)': $<
 
 clean:
 	@$(MAKE) -C libk --no-print-directory  clean
