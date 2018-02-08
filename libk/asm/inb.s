@@ -1,14 +1,14 @@
 .section .text
-.global outb
-outb:
+.global inb
+inb:
 	push %ebp
 	mov %esp, %ebp
 
-	movb 8(%ebp), %al
-	movb 4(%ebp), %dl
+	movb 8(%ebp), %dl
 
-	outb %al, %dx
+	inb %dx	, %al
 
+	mov %dx, %ax
 	mov	%esp, %ebp
 	pop	%ebp
 	ret

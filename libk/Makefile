@@ -2,12 +2,14 @@ C++_SRC_NAME = putstr.c++ \
 				strlen.c++ \
 				terminal.c++ \
 				scrollUp.c++ \
-				putstr_color.c++
+				putstr_color.c++ \
+				getchar.c++
 
-C++_OBJ_NAME = $(C++_SRC_NAME:.c++=.o)
+ASM_SRC_NAME = outb.s \
+				inb.s
 
-ASM_SRC_NAME = outb.s
 ASM_OBJ_NAME = $(ASM_SRC_NAME:.s=.o)
+C++_OBJ_NAME = $(C++_SRC_NAME:.c++=.o)
 
 C++ = i686-elf-g++
 ASM = i686-elf-as
@@ -52,8 +54,8 @@ $(C++_OBJ_PATH)%.o: $(C++_SRC_PATH)%.c++
 
 $(ASM_OBJ_PATH)%.o: $(ASM_SRC_PATH)%.s
 	@/bin/mkdir -p $(ASM_OBJ_PATH) >&- 2>&-
-	@$(ASM) $< -o $@
-	@/bin/echo -e '$(ccred)'libk'$(ccend)':'\t''$(ccgreen)'[ASM]'$(ccend)' : $<
+	@$(ASM) $< -o $@ --fatal-warnings
+	@/bin/echo -e '$(ccred)'libk'$(ccend)':'\t''$(cccyan)'[ASM]'$(ccend)' : $<
 
 clean:
 	@rm -fv $(OBJ)

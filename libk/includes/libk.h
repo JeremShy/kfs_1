@@ -23,7 +23,13 @@ void terminal_putentryat(char c, uint8_t color, size_t x, size_t y);
 void terminal_putchar(char c);
 void terminal_write(const char* data, size_t size);
 
+char getScancode();
+char getchar();
 
 // ASM functions
-void outb(uint16_t port, uint8_t val);
+extern "C"
+{
+	void outb(uint16_t port, uint8_t val);
+	uint8_t inb(uint16_t port);
+}
 #endif
