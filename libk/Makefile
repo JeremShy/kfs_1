@@ -46,15 +46,19 @@ $(NAME): $(OBJ)
 	@/bin/echo -e '$(ccred)'libk'$(ccend)': Compiled.'\n'
 
 $(C++_OBJ_PATH)%.o: $(C++_SRC_PATH)%.c++
+	@/bin/mkdir -p $(C++_OBJ_PATH) >&- 2>&-
 	@$(C++) $(C++_FLAGS) $(INCLUDE_FLAGS) -c $< -o $@
 	@/bin/echo -e '$(ccred)'libk'$(ccend)':'\t''$(ccgreen)'[C]'$(ccend)' : $<
 
 $(ASM_OBJ_PATH)%.o: $(ASM_SRC_PATH)%.s
+	@/bin/mkdir -p $(ASM_OBJ_PATH) >&- 2>&-
 	@$(ASM) $< -o $@
 	@/bin/echo -e '$(ccred)'libk'$(ccend)':'\t''$(ccgreen)'[ASM]'$(ccend)' : $<
 
 clean:
 	@rm -fv $(OBJ)
+	@rm -rfv $(C++_OBJ_PATH)
+	@rm -rfv $(ASM_OBJ_PATH)
 
 fclean: clean
 	@rm -fv $(NAME)

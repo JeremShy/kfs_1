@@ -52,22 +52,26 @@ lib:
 
 $(C++_OBJ_PATH)%.o: $(C++_SRC_PATH)%.c++
 	@/bin/echo -e '\r''$(ccred)'kernel'$(ccend)': Compiling...
+	@/bin/mkdir -p $(C++_OBJ_PATH) >&- 2>&-
 	@$(C++) $(C++_FLAGS) $(INCLUDE_FLAGS) -c $< -o $@
 	@/bin/echo -e '$(ccgreen)'[C]'$(ccend)': $<
 
 $(ASM_OBJ_PATH)%.o: $(ASM_SRC_PATH)%.s
+	@/bin/mkdir -p $(ASM_OBJ_PATH) >&- 2>&-
 	@$(ASM) $< -o $@
 	@/bin/echo -e '$(cccyan)'[ASM]'$(ccend)': $<
 
 clean:
-	@$(MAKE) -C libk --no-print-directory  clean
+	@$(MAKE) -C libk clean
 	@rm -fv $(OBJ)
 
 fclean: clean
-	@$(MAKE) -C libk --no-print-directory  fclean
+	@$(MAKE) -C libk fclean
 	@rm -fv $(OBJ)
 	@rm -fv $(BIN_NAME)
 	@rm -fv $(ISO_NAME)
+	@rm -rfv $(C++_OBJ_PATH)
+	@rm -rfv $(ASM_OBJ_PATH)
 	@rm -fv isodir/boot/$(BIN_NAME)
 
 test: all
