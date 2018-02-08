@@ -1,3 +1,5 @@
+# Pourquoi diable ça ne marche pas ?!
+
 .section .text
 .global outb
 outb:

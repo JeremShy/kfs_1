@@ -5,8 +5,8 @@ C++_SRC_NAME = putstr.c++ \
 				putstr_color.c++ \
 				getchar.c++
 
-ASM_SRC_NAME = outb.s \
-				inb.s
+ASM_SRC_NAME = #outb.s \
+				# inb.s
 
 ASM_OBJ_NAME = $(ASM_SRC_NAME:.s=.o)
 C++_OBJ_NAME = $(C++_SRC_NAME:.c++=.o)

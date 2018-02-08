@@ -4,7 +4,7 @@ extern "C" void kernel_main(void)
 {
 	terminal_initialize();
 
-	putstr_color("Hello, kernel World!", VGA_COLOR_CYAN);
+	putstr_color("Hello, kernel World!\n", VGA_COLOR_CYAN);
 
 	char buffer[3] = "0\n";
 	char c;
@@ -13,6 +13,7 @@ extern "C" void kernel_main(void)
 	{
 		c = getchar();
 		buffer[0] = c + '0';
+		putstr("Here : ");
 		putstr(buffer);
 	}
 }
