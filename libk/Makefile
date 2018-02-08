@@ -6,7 +6,7 @@ C++_SRC_NAME = putstr.c++ \
 
 C++_OBJ_NAME = $(C++_SRC_NAME:.c++=.o)
 
-ASM_SRC_NAME = # None
+ASM_SRC_NAME = outb.s
 ASM_OBJ_NAME = $(ASM_SRC_NAME:.s=.o)
 
 C++ = i686-elf-g++
@@ -21,7 +21,7 @@ ASM_OBJ_PATH = ./objasm/
 
 NAME = ../libk.a
 
-C++_FLAGS= -fno-builtin -fno-exceptions -fno-stack-protector -fno-rtti -nostdlib -nodefaultlibs
+C++_FLAGS= -fno-builtin -fno-exceptions -fno-stack-protector -fno-rtti -nostdlib -nodefaultlibs -g
 
 C++_SRC = $(addprefix $(C++_PATH),$(C++_SRC_NAME))
 ASM_SRC = $(addprefix $(ASM_PATH),$(ASM_SRC_NAME))
@@ -29,7 +29,7 @@ ASM_SRC = $(addprefix $(ASM_PATH),$(ASM_SRC_NAME))
 C++_OBJ = $(addprefix $(C++_OBJ_PATH),$(C++_OBJ_NAME))
 ASM_OBJ = $(addprefix $(ASM_OBJ_PATH),$(ASM_OBJ_NAME))
 
-INCLUDES = ./
+INCLUDES = ./includes/
 INCLUDE_FLAGS = $(addprefix -I ,$(INCLUDES))
 
 OBJ = $(C++_OBJ) $(ASM_OBJ)

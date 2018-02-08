@@ -19,7 +19,7 @@ ISO_NAME = $(PRENAME).iso
 BIN_NAME = $(PRENAME).bin
 NAME = $(ISO_NAME)
 
-C++_FLAGS = -fno-builtin -fno-exceptions -fno-stack-protector -fno-rtti -nostdlib -nodefaultlibs
+C++_FLAGS = -fno-builtin -fno-exceptions -fno-stack-protector -fno-rtti -nostdlib -nodefaultlibs -g
 C++_SRC = $(addprefix $(C++_PATH),$(C++_SRC_NAME))
 ASM_SRC = $(addprefix $(ASM_PATH),$(ASM_SRC_NAME))
 
@@ -27,7 +27,7 @@ C++_OBJ = $(addprefix $(C++_OBJ_PATH),$(C++_OBJ_NAME))
 ASM_OBJ = $(addprefix $(ASM_OBJ_PATH),$(ASM_OBJ_NAME))
 OBJ = $(C++_OBJ) $(ASM_OBJ)
 
-INCLUDES = ./libk
+INCLUDES = ./libk/includes/
 INCLUDE_FLAGS = $(addprefix -I ,$(INCLUDES))
 
 ccred = \033[0;31m
@@ -77,4 +77,6 @@ fclean: clean
 test: all
 	kvm -m 256 -cdrom $(ISO_NAME) -curses
 
+debug: all
+	kvm -m 256 -cdrom $(ISO_NAME) -curses -s -S
 re: fclean all
