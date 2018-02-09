@@ -1,4 +1,5 @@
-C++_SRC_NAME = kernel.c++
+C++_SRC_NAME = kernel.c++ \
+				terminal.c++
 C++_OBJ_NAME = $(C++_SRC_NAME:.c++=.o)
 
 ASM_SRC_NAME = boot.s
@@ -27,7 +28,7 @@ C++_OBJ = $(addprefix $(C++_OBJ_PATH),$(C++_OBJ_NAME))
 ASM_OBJ = $(addprefix $(ASM_OBJ_PATH),$(ASM_OBJ_NAME))
 OBJ = $(C++_OBJ) $(ASM_OBJ)
 
-INCLUDES = ./libk/includes/
+INCLUDES = ./libk/includes/ ./includes
 INCLUDE_FLAGS = $(addprefix -I ,$(INCLUDES))
 
 ccred = \033[0;31m

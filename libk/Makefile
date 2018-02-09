@@ -1,6 +1,5 @@
 C++_SRC_NAME = putstr.c++ \
 				strlen.c++ \
-				terminal.c++ \
 				putstr_color.c++ \
 				getchar.c++ \
 				putchar.c++ \
@@ -31,7 +30,7 @@ ASM_SRC = $(addprefix $(ASM_PATH),$(ASM_SRC_NAME))
 C++_OBJ = $(addprefix $(C++_OBJ_PATH),$(C++_OBJ_NAME))
 ASM_OBJ = $(addprefix $(ASM_OBJ_PATH),$(ASM_OBJ_NAME))
 
-INCLUDES = ./includes/
+INCLUDES = ./includes/ ../includes
 INCLUDE_FLAGS = $(addprefix -I ,$(INCLUDES))
 
 OBJ = $(C++_OBJ) $(ASM_OBJ)
