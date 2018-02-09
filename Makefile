@@ -1,5 +1,6 @@
 C++_SRC_NAME = kernel.c++ \
-				terminal.c++
+				terminal.c++ \
+				cursor.c++
 C++_OBJ_NAME = $(C++_SRC_NAME:.c++=.o)
 
 ASM_SRC_NAME = boot.s
@@ -47,7 +48,7 @@ INTERNAL_OBJS:=$(CRTI_OBJ) $(OBJ) $(CRTN_OBJ)
 all: lib $(NAME)
 
 $(NAME) : $(INTERNAL_OBJS) libk.a
-	$(LD) -o $(BIN_NAME) $(OBJ_LINK_LIST) $(C++_FLAGS) -L. -lk
+	@$(LD) -o $(BIN_NAME) $(OBJ_LINK_LIST) $(C++_FLAGS) -L. -lk
 	@/bin/echo -e '$(ccred)'kernel'$(ccend)': Compiled and linked.'\n'
 	@mkdir -p isodir/boot/grub
 	@cp $(BIN_NAME) isodir/boot/$(BIN_NAME)
@@ -59,15 +60,14 @@ lib:
 	@$(MAKE) --no-print-directory -C libk
 
 $(C++_OBJ_PATH)%.o: $(C++_SRC_PATH)%.c++
-	@/bin/echo -e '\r''$(ccred)'kernel'$(ccend)': Compiling...
+	@/bin/echo -e '$(ccred)'kernel'$(ccend)':	'$(ccgreen)'[C]'$(ccend)': $<
 	@/bin/mkdir -p $(C++_OBJ_PATH) >&- 2>&-
 	@$(C++) $(C++_FLAGS) $(INCLUDE_FLAGS) -c $< -o $@
-	@/bin/echo -e '$(ccgreen)'[C]'$(ccend)': $<
 
 $(ASM_OBJ_PATH)%.o: $(ASM_SRC_PATH)%.s
+	@/bin/echo -e '$(ccred)'kernel'$(ccend)':	'$(cccyan)'[ASM]'$(ccend)': $<
 	@/bin/mkdir -p $(ASM_OBJ_PATH) >&- 2>&-
 	@$(ASM) $< -o $@
-	@/bin/echo -e '$(cccyan)'[ASM]'$(ccend)': $<
 
 clean:
 	@$(MAKE) -C libk clean

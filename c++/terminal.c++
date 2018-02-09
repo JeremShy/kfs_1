@@ -14,6 +14,11 @@ Terminal::Terminal(void)
 	}
 }
 
+void	Terminal::moveCursorTo(int x, int y)
+{
+	_cursor.moveCursorTo(x, y);
+}
+
 void Terminal::setColor(uint8_t color)
 {
 	_color = color;
@@ -36,13 +41,17 @@ void Terminal::putchar(char c)
 			_column = 0;
 		}
 		else
+		{
+			_cursor.moveCursorTo(_column, _row);
 			return ;
+		}
 	}
 	if (++_row == VGA_HEIGHT)
 	{
 		this->scrollUp();
 		_row--;
 	}
+	_cursor.moveCursorTo(_column, _row);
 }
 
 void Terminal::write(const char* data, size_t size)
@@ -84,4 +93,15 @@ void	Terminal::scrollUp()
 uint8_t	Terminal::getColor()
 {
 	return (_color);
+}
+
+
+void	Terminal::disableCursor()
+{
+	_cursor.disable();
+}
+
+void	Terminal::enableCursor(uint8_t startLine, uint8_t endLine)
+{
+	_cursor.enable(startLine, endLine);
 }

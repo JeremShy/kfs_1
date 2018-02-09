@@ -4,6 +4,7 @@
 # include <terminal.h>
 # include <types.h>
 # include <inline.h>
+# include <cursor.h>
 
 static const size_t VGA_WIDTH = 80;
 static const size_t VGA_HEIGHT = 25;

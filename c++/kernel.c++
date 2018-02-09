@@ -4,6 +4,7 @@ Terminal term;
 
 extern "C" void kernel_main(void)
 {
+	term.enableCursor(1, 15);
 	putstr_color("Hello, kernel World!\n", VGA_COLOR_CYAN);
 
 	char c;
@@ -11,5 +12,7 @@ extern "C" void kernel_main(void)
 	{
 		c = getchar();
 		putchar(c);
+		if (c == 'x')
+			term.disableCursor();
 	}
 }
