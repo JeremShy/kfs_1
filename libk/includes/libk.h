@@ -5,6 +5,7 @@
 # include <types.h>
 # include <inline.h>
 # include <cursor.h>
+# include <keyComb.h>
 
 # define VGA_WIDTH 80
 # define VGA_HEIGHT 25
@@ -24,7 +25,7 @@ void putnbr(int c);
 int	putchar(int c);
 
 char getScancode();
-char getchar();
+KeyComb getKeyComb_down();
 
 void printk(const char *s, ...);
 

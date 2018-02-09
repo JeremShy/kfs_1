@@ -1,10 +1,11 @@
 C++_SRC_NAME = putstr.c++ \
 				strlen.c++ \
 				putstr_color.c++ \
-				getchar.c++ \
+				getKeyComb_down.c++ \
 				putchar.c++ \
 				putnbr.c++ \
-				printk.c++
+				printk.c++ \
+				keyComb.c++
 
 ASM_SRC_NAME =
 
