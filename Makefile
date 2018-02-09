@@ -35,10 +35,18 @@ cccyan = \033[0;36m
 ccgreen = \033[0;32m
 ccend = \033[0m
 
+CRTI_OBJ=$(ASM_OBJ_PATH)crti.o
+CRTBEGIN_OBJ:=$(shell $(C++) $(CFLAGS) -print-file-name=crtbegin.o)
+CRTEND_OBJ:=$(shell $(C++) $(CFLAGS) -print-file-name=crtend.o)
+CRTN_OBJ=$(ASM_OBJ_PATH)crtn.o
+
+OBJ_LINK_LIST:=$(CRTI_OBJ) $(CRTBEGIN_OBJ) $(OBJ) $(CRTEND_OBJ) $(CRTN_OBJ)
+INTERNAL_OBJS:=$(CRTI_OBJ) $(OBJ) $(CRTN_OBJ)
+
 all: lib $(NAME)
 
-$(NAME) : $(OBJ) libk.a
-	@$(LD) -o $(BIN_NAME) $(OBJ) $(C++_FLAGS) -L. -lk
+$(NAME) : $(INTERNAL_OBJS) libk.a
+	$(LD) -o $(BIN_NAME) $(OBJ_LINK_LIST) $(C++_FLAGS) -L. -lk
 	@/bin/echo -e '$(ccred)'kernel'$(ccend)': Compiled and linked.'\n'
 	@mkdir -p isodir/boot/grub
 	@cp $(BIN_NAME) isodir/boot/$(BIN_NAME)
@@ -62,11 +70,10 @@ $(ASM_OBJ_PATH)%.o: $(ASM_SRC_PATH)%.s
 
 clean:
 	@$(MAKE) -C libk clean
-	@rm -fv $(OBJ)
+	@rm -fv $(INTERNAL_OBJS)
 
 fclean: clean
 	@$(MAKE) -C libk fclean
-	@rm -fv $(OBJ)
 	@rm -fv $(BIN_NAME)
 	@rm -fv $(ISO_NAME)
 	@rm -rfv $(C++_OBJ_PATH)
