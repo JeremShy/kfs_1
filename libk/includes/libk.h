@@ -6,8 +6,14 @@
 # include <inline.h>
 # include <cursor.h>
 
-static const size_t VGA_WIDTH = 80;
-static const size_t VGA_HEIGHT = 25;
+# define VGA_WIDTH 80
+# define VGA_HEIGHT 25
+
+// Thank you, GCC, that's nice.
+typedef __builtin_va_list va_list;
+# define va_start __builtin_va_start
+# define va_end __builtin_va_end
+# define va_arg __builtin_va_arg
 
 extern Terminal term;
 
@@ -20,6 +26,7 @@ int	putchar(int c);
 char getScancode();
 char getchar();
 
+void printk(const char *s, ...);
 
 
 // ASM functions

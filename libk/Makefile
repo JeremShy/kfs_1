@@ -3,7 +3,8 @@ C++_SRC_NAME = putstr.c++ \
 				putstr_color.c++ \
 				getchar.c++ \
 				putchar.c++ \
-				putnbr.c++
+				putnbr.c++ \
+				printk.c++
 
 ASM_SRC_NAME =
 

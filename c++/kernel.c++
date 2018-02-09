@@ -1,9 +1,11 @@
 #include <libk.h>
+#include <stdarg.h>
 
 Terminal term;
 
 extern "C" void kernel_main(void)
 {
+	char	line[4096];
 	term.enableCursor(1, 15);
 	putstr_color("Hello, kernel World!\n", VGA_COLOR_CYAN);
 
@@ -11,7 +13,7 @@ extern "C" void kernel_main(void)
 	while (1)
 	{
 		c = getchar();
-		putchar(c);
+		printk("%c", c);
 		if (c == 'x')
 			term.disableCursor();
 	}
