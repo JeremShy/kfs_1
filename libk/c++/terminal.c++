@@ -1,57 +1,79 @@
 #include <libk.h>
 
-size_t terminal_row;
-size_t terminal_column;
-uint8_t terminal_color;
-volatile uint16_t* terminal_buffer;
-
-void terminal_initialize(void)
+Terminal::Terminal(void)
 {
-	terminal_row = 0;
-	terminal_column = 0;
-	terminal_color = vga_entry_color(VGA_COLOR_LIGHT_GREY, VGA_COLOR_BLACK);
-	terminal_buffer = (uint16_t*) 0xB8000;
+	_row = 0;
+	_column = 0;
+	_color = vga_entry_color(VGA_COLOR_LIGHT_GREY, VGA_COLOR_BLACK);
+	_buffer = (uint16_t*) 0xB8000;
 	for (size_t y = 0; y < VGA_HEIGHT; y++) {
 		for (size_t x = 0; x < VGA_WIDTH; x++) {
 			const size_t index = y * VGA_WIDTH + x;
-			terminal_buffer[index] = vga_entry(' ', terminal_color);
+			_buffer[index] = vga_entry(' ', _color);
 		}
 	}
 }
 
-void terminal_setcolor(uint8_t color)
+void Terminal::setColor(uint8_t color)
 {
-	terminal_color = color;
+	_color = color;
 }
 
-void terminal_putentryat(char c, uint8_t color, size_t x, size_t y)
+void Terminal::putEntryAt(char c, uint8_t color, size_t x, size_t y)
 {
 	const size_t index = y * VGA_WIDTH + x;
-	terminal_buffer[index] = vga_entry(c, color);
+	_buffer[index] = vga_entry(c, color);
 }
 
-void terminal_putchar(char c)
+void Terminal::putchar(char c)
 {
-	terminal_putentryat(c, terminal_color, terminal_column, terminal_row);
+	this->putEntryAt(c, _color, _column, _row);
 	if (c == '\n')
-		terminal_column = 0;
+		_column = 0;
 	else
 	{
-		if (++terminal_column == VGA_WIDTH) {
-			terminal_column = 0;
+		if (++_column == VGA_WIDTH) {
+			_column = 0;
 		}
 		else
 			return ;
 	}
-	if (++terminal_row == VGA_HEIGHT)
+	if (++_row == VGA_HEIGHT)
 	{
-		scrollUp();
-		terminal_row--;
+		this->scrollUp();
+		_row--;
 	}
 }
 
-void terminal_write(const char* data, size_t size)
+void Terminal::write(const char* data, size_t size)
 {
 	for (size_t i = 0; i < size; i++)
-		terminal_putchar(data[i]);
+		this->putchar(data[i]);
+}
+
+void	Terminal::scrollUp()
+{
+	int	y;
+	int	x;
+	size_t	index;
+	size_t	nindex;
+
+	y = 0;
+	while (y < VGA_HEIGHT - 1)
+	{
+		x = 0;
+		while (x < VGA_WIDTH)
+		{
+			index = y * VGA_WIDTH + x;
+			nindex = (y + 1) * VGA_WIDTH + x;
+			_buffer[index] = _buffer[nindex];
+			x++;
+		}
+		y++;
+	}
+}
+
+uint8_t	Terminal::getColor()
+{
+	return (_color);
 }

@@ -1,9 +1,9 @@
 #include <libk.h>
 
+Terminal term;
+
 extern "C" void kernel_main(void)
 {
-	terminal_initialize();
-
 	putstr_color("Hello, kernel World!\n", VGA_COLOR_CYAN);
 
 	char c;

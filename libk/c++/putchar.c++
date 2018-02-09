@@ -2,6 +2,6 @@
 
 int	putchar(int c)
 {
-	terminal_putchar(c);
+	term.putchar(c);
 	return (c);
 }

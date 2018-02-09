@@ -1,13 +1,12 @@
 C++_SRC_NAME = putstr.c++ \
 				strlen.c++ \
 				terminal.c++ \
-				scrollUp.c++ \
 				putstr_color.c++ \
 				getchar.c++ \
 				putchar.c++ \
 				putnbr.c++
 
-ASM_SRC_NAME = 
+ASM_SRC_NAME =
 
 ASM_OBJ_NAME = $(ASM_SRC_NAME:.s=.o)
 C++_OBJ_NAME = $(C++_SRC_NAME:.c++=.o)

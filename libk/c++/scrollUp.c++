@@ -1,6 +1,6 @@
 #include <libk.h>
 
-void	scrollUp()
+void	Terminal::scrollUp()
 {
 	int	y;
 	int	x;
