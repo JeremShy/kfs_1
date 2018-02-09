@@ -66,12 +66,20 @@ void	Terminal::scrollUp()
 		{
 			index = y * VGA_WIDTH + x;
 			nindex = (y + 1) * VGA_WIDTH + x;
-			_buffer[index] = _buffer[nindex];
+			term._buffer[index] = term._buffer[nindex];
 			x++;
 		}
 		y++;
 	}
+	x = 0;
+	while (x < VGA_WIDTH)
+	{
+		index = y * VGA_WIDTH + x;
+		term._buffer[index] = vga_entry(' ', _color);
+		x++;
+	}
 }
+
 
 uint8_t	Terminal::getColor()
 {

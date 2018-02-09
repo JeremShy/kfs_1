@@ -11,6 +11,5 @@ extern "C" void kernel_main(void)
 	{
 		c = getchar();
 		putchar(c);
-		// putstr("\n");
 	}
 }
