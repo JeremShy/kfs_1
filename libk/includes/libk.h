@@ -15,6 +15,10 @@ extern volatile uint16_t* terminal_buffer;
 size_t strlen(const char* str);
 void putstr(const char* data);
 void putstr_color(const char *data, uint8_t color);
+void putnbr(int c);
+int	putchar(int c);
+
+
 
 void	scrollUp();
 void terminal_initialize(void);
@@ -25,6 +29,8 @@ void terminal_write(const char* data, size_t size);
 
 char getScancode();
 char getchar();
+
+
 
 // ASM functions
 extern "C"

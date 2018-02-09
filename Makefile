@@ -42,8 +42,7 @@ $(NAME) : $(OBJ) libk.a
 	@/bin/echo -e '$(ccred)'kernel'$(ccend)': Compiled and linked.'\n'
 	@mkdir -p isodir/boot/grub
 	@cp $(BIN_NAME) isodir/boot/$(BIN_NAME)
-
-	@/bin/echo -e Making a bootable cd...
+	@/bin/echo -e '$(cccyan)'Making a bootable cd...'$(ccend)'
 	grub-mkrescue -o $(ISO_NAME) isodir
 	@/bin/echo -e '$(ccgreen)'Everything ok '$(ccend)'
 

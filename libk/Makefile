@@ -3,7 +3,9 @@ C++_SRC_NAME = putstr.c++ \
 				terminal.c++ \
 				scrollUp.c++ \
 				putstr_color.c++ \
-				getchar.c++
+				getchar.c++ \
+				putchar.c++ \
+				putnbr.c++
 
 ASM_SRC_NAME = #outb.s \
 				# inb.s
