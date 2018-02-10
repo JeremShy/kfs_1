@@ -11,6 +11,8 @@ private:
 	uint8_t _color;
 	volatile uint16_t* _buffer;
 	Cursor _cursor;
+	bool	_cursorUpdate;
+	int		_nbrScrollBuffer;
 
 	void putEntryAt(char c, uint8_t color, size_t x, size_t y);
 
@@ -27,6 +29,9 @@ public:
 	void	enableCursor(uint8_t startLine, uint8_t endLine);
 
 	void	moveCursorTo(int x, int y);
+
+	void	enableCursorUpdate();
+	void	disableCursorUpdate();
 };
 
 #endif

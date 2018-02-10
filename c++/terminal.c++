@@ -1,11 +1,7 @@
 #include <libk.h>
 
-Terminal::Terminal(void)
+Terminal::Terminal(void) : _row(0), _column(0), _color(vga_entry_color(VGA_COLOR_LIGHT_GREY, VGA_COLOR_BLACK)), _buffer((uint16_t*) 0xB8000), _cursorUpdate(true), _nbrScrollBuffer(0)
 {
-	_row = 0;
-	_column = 0;
-	_color = vga_entry_color(VGA_COLOR_LIGHT_GREY, VGA_COLOR_BLACK);
-	_buffer = (uint16_t*) 0xB8000;
 	for (size_t y = 0; y < VGA_HEIGHT; y++) {
 		for (size_t x = 0; x < VGA_WIDTH; x++) {
 			const size_t index = y * VGA_WIDTH + x;
@@ -30,6 +26,23 @@ void Terminal::putEntryAt(char c, uint8_t color, size_t x, size_t y)
 	_buffer[index] = vga_entry(c, color);
 }
 
+void	Terminal::enableCursorUpdate()
+{
+	_cursorUpdate = true;
+	int	i = 0;
+	while (i < _nbrScrollBuffer)
+	{
+		scrollUp();
+		i++;
+	}
+	_cursor.moveCursorTo(_column, _row);
+}
+void	Terminal::disableCursorUpdate()
+{
+	_cursorUpdate = false;
+	_nbrScrollBuffer = 0;
+}
+
 void Terminal::putchar(char c)
 {
 	this->putEntryAt(c, _color, _column, _row);
@@ -42,22 +55,29 @@ void Terminal::putchar(char c)
 		}
 		else
 		{
-			_cursor.moveCursorTo(_column, _row);
+			if (_cursorUpdate)
+				_cursor.moveCursorTo(_column, _row);
 			return ;
 		}
 	}
 	if (++_row == VGA_HEIGHT)
 	{
-		this->scrollUp();
+		if (_cursorUpdate)
+			scrollUp();
+		else
+			_nbrScrollBuffer++;
 		_row--;
 	}
-	_cursor.moveCursorTo(_column, _row);
+	if (_cursorUpdate)
+		_cursor.moveCursorTo(_column, _row);
 }
 
 void Terminal::write(const char* data, size_t size)
 {
+	disableCursorUpdate();
 	for (size_t i = 0; i < size; i++)
 		this->putchar(data[i]);
+	enableCursorUpdate();
 }
 
 void	Terminal::scrollUp()
