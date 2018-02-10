@@ -5,7 +5,9 @@ C++_SRC_NAME = putstr.c++ \
 				putchar.c++ \
 				putnbr.c++ \
 				printk.c++ \
-				keyComb.c++
+				KeyComb.c++ \
+				memcpy.c++ \
+				volatile_memcpy.c++
 
 ASM_SRC_NAME =
 
@@ -24,7 +26,7 @@ ASM_OBJ_PATH = ./objasm/
 
 NAME = ../libk.a
 
-C++_FLAGS= -fno-builtin -fno-exceptions -fno-stack-protector -fno-rtti -nostdlib -nodefaultlibs -g
+C++_FLAGS= -fno-builtin -fno-exceptions -fno-stack-protector -fno-rtti -nostdlib -nodefaultlibs -g -Wall -Wextra
 
 C++_SRC = $(addprefix $(C++_PATH),$(C++_SRC_NAME))
 ASM_SRC = $(addprefix $(ASM_PATH),$(ASM_SRC_NAME))

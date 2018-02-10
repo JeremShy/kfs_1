@@ -2,15 +2,15 @@
 # define KEYCOMB_H
 # include <types.h>
 
-# define KEYCOMB_SHIFT 1 << 0
-# define KEYCOMB_CTRL 1 << 1
-# define KEYCOMB_ALT 1 << 2
-# define KEYCOMB_ASCII 1 << 3
+# define KEYCOMB_SHIFT (1 << 0)
+# define KEYCOMB_CTRL (1 << 1)
+# define KEYCOMB_ALT (1 << 2)
+# define KEYCOMB_ASCII (1 << 3)
 
 class KeyComb
 {
 private:
-	uint8_t	_flags;
+	int	_flags;
 	char	_ascii;
 	char	_code;
 
@@ -43,6 +43,8 @@ public:
 
 	char	getAscii();
 	char	getCode();
+
+	void	describe();
 };
 
 #endif

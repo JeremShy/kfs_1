@@ -9,7 +9,7 @@ char getScancode()
 KeyComb getKeyComb_down()
 {
 	KeyComb ret;
-	char code;
+	unsigned char code;
 	int	ignore = 0;
     do
 	{

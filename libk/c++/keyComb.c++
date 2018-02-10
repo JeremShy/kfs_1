@@ -1,4 +1,5 @@
-#include <keyComb.h>
+#include <KeyComb.h>
+#include <libk.h>
 
 constexpr unsigned char KeyComb::scancode[128]; // Kamoulox
 constexpr unsigned char KeyComb::majscancode[128];
@@ -18,7 +19,8 @@ bool	KeyComb::isShiftPressed()
 
 bool	KeyComb::isCtrlPressed()
 {
-	return ((bool)(_flags & KEYCOMB_CTRL));
+	bool ret = (_flags & KEYCOMB_CTRL);
+	return (ret);
 }
 
 bool	KeyComb::isAltPressed()
@@ -75,22 +77,54 @@ void KeyComb::setKeyFromScancode(char code)
 	}
 	if (isShiftPressed())
 	{
-		if (this->majscancode[code] == 0)
+		if (this->majscancode[(unsigned char)code] == '\0')
 			setAscii(false);
 		else
 		{
 			setAscii(true);
-			_ascii = this->majscancode[code];
+			_ascii = this->majscancode[(unsigned char)code];
 		}
 	}
 	else
 	{
-		if (this->scancode[code] == 0)
+		if (this->scancode[(unsigned char)code] == '\0')
 			setAscii(false);
 		else
 		{
 			setAscii(true);
-			_ascii = this->scancode[code];
+			_ascii = this->scancode[(unsigned char)code];
 		}
 	}
+}
+
+void	KeyComb::describe()
+{
+	printk("shift: ");
+	if (isShiftPressed())
+	{
+		printk("pressed.\n");
+	}
+	else
+	{
+		printk("not pressed.\n");
+	}
+	printk("Ctrl: ");
+	if (isCtrlPressed())
+	{
+		printk("pressed.\n");
+	}
+	else
+	{
+		printk("not pressed.\n");
+	}
+	printk("Alt: ");
+	if (isAltPressed())
+	{
+		printk("pressed.\n");
+	}
+	else
+	{
+		printk("not pressed.\n");
+	}
+	printk("Code : %d\n", _code);
 }

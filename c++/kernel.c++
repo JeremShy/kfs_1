@@ -1,14 +1,11 @@
-
 #include <libk.h>
 #include <stdarg.h>
 
-Terminal term;
+TerminalManager termManager;
 
 extern "C" void kernel_main(void)
 {
-	char	line[4096];
-	term.enableCursor(1, 12);
-	putstr_color("Hello, kernel World!\nHow are you ?", VGA_COLOR_CYAN);
+	putstr_color("Hello, kernel World!\nHow are you ?\n", VGA_COLOR_CYAN);
 
 	while (1)
 	{
@@ -16,10 +13,21 @@ extern "C" void kernel_main(void)
 		if (comb.isAscii())
 		{
 			printk("%c", comb.getAscii());
-			if (comb.getAscii() == 'x')
-				term.disableCursorUpdate();
-			if (comb.getAscii() == 'y')
-				term.enableCursorUpdate();
+		}
+		else
+		{
+			if (comb.getCode() == 16 && comb.isCtrlPressed())
+			{
+				termManager.switchTerminal(0);
+			}
+			else if (comb.getCode() == 17 && comb.isCtrlPressed())
+			{
+				termManager.switchTerminal(1);
+			}
+			else if (comb.getCode() == 18 && comb.isCtrlPressed())
+			{
+				termManager.switchTerminal(2);
+			}
 		}
 	}
 }

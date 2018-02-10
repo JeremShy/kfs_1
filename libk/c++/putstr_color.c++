@@ -2,9 +2,9 @@
 
 void putstr_color(const char *data, uint8_t color)
 {
-	uint8_t oldcolor = term.getColor();
+	uint8_t oldcolor = termManager.getActualTerm()->getColor();
 
-	term.setColor(color);
+	termManager.getActualTerm()->setColor(color);
 	putstr(data);
-	term.setColor(oldcolor);
+	termManager.getActualTerm()->setColor(oldcolor);
 }

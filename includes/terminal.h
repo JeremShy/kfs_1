@@ -2,7 +2,10 @@
 # define TERMINAL_H
 
 # include <types.h>
-# include <cursor.h>
+# include <Cursor.h>
+
+# define VGA_WIDTH 80
+# define VGA_HEIGHT 25
 
 class Terminal {
 private:
@@ -12,7 +15,8 @@ private:
 	volatile uint16_t* _buffer;
 	Cursor _cursor;
 	bool	_cursorUpdate;
-	int		_nbrScrollBuffer;
+	bool	_enabled;
+	uint16_t	_hiddenBuffer[VGA_WIDTH * VGA_HEIGHT];
 
 	void putEntryAt(char c, uint8_t color, size_t x, size_t y);
 
@@ -32,6 +36,9 @@ public:
 
 	void	enableCursorUpdate();
 	void	disableCursorUpdate();
+
+	void	enable();
+	void	disable();
 };
 
 #endif

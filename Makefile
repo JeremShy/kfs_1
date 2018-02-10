@@ -1,6 +1,7 @@
 C++_SRC_NAME = kernel.c++ \
-				terminal.c++ \
-				cursor.c++
+				Terminal.c++ \
+				Cursor.c++ \
+				TerminalManager.c++
 C++_OBJ_NAME = $(C++_SRC_NAME:.c++=.o)
 
 ASM_SRC_NAME = boot.s
@@ -21,7 +22,7 @@ ISO_NAME = $(PRENAME).iso
 BIN_NAME = $(PRENAME).bin
 NAME = $(ISO_NAME)
 
-C++_FLAGS = -fno-builtin -fno-exceptions -fno-stack-protector -fno-rtti -nostdlib -nodefaultlibs -g
+C++_FLAGS = -fno-builtin -fno-exceptions -fno-stack-protector -fno-rtti -nostdlib -nodefaultlibs -g -Wall -Wextra
 C++_SRC = $(addprefix $(C++_PATH),$(C++_SRC_NAME))
 ASM_SRC = $(addprefix $(ASM_PATH),$(ASM_SRC_NAME))
 

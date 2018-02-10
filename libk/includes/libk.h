@@ -4,11 +4,9 @@
 # include <terminal.h>
 # include <types.h>
 # include <inline.h>
-# include <cursor.h>
-# include <keyComb.h>
-
-# define VGA_WIDTH 80
-# define VGA_HEIGHT 25
+# include <Cursor.h>
+# include <KeyComb.h>
+# include <TerminalManager.h>
 
 // Thank you, GCC, that's nice.
 typedef __builtin_va_list va_list;
@@ -16,7 +14,7 @@ typedef __builtin_va_list va_list;
 # define va_end __builtin_va_end
 # define va_arg __builtin_va_arg
 
-extern Terminal term;
+extern TerminalManager termManager;
 
 size_t strlen(const char* str);
 void putstr(const char* data);
@@ -29,6 +27,8 @@ KeyComb getKeyComb_down();
 
 void printk(const char *s, ...);
 
+void	memcpy(void *dest, const void *src, size_t n);
+void	volatile_memcpy(void volatile *dest, const void volatile *src, size_t n);
 
 // ASM functions
 extern "C"
