@@ -1,13 +1,2 @@
-Avant :
-EBP: 0x00105FC8
-ESP: 0x00105FAC
-
-Apres:
-EBP: 0x00105FC8
-ESP: 0x00105FC8
-
-0x105fb0:	0x64
-
-TODO:
-fleches
-line editing
+TODO :
+Gerer les fleches directionnelles.
