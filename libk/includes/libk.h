@@ -25,6 +25,12 @@ int	putchar(int c);
 char getScancode();
 KeyComb getKeyComb_down();
 
+void	moveCursorPrec();
+void	moveCursorNext();
+void	moveCursorUp();
+void	moveCursorDown();
+
+
 void printk(const char *s, ...);
 
 void	memcpy(void *dest, const void *src, size_t n);

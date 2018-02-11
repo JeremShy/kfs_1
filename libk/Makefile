@@ -7,7 +7,8 @@ C++_SRC_NAME = putstr.c++ \
 				printk.c++ \
 				KeyComb.c++ \
 				memcpy.c++ \
-				volatile_memcpy.c++
+				volatile_memcpy.c++ \
+				moveCursor.c++
 
 ASM_SRC_NAME =
 

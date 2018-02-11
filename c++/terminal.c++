@@ -128,3 +128,57 @@ void	Terminal::disable()
 	_enabled = false;
 	volatile_memcpy(_hiddenBuffer, _buffer, sizeof(_hiddenBuffer));
 }
+
+void	Terminal::moveCursorPrec()
+{
+	if (_column > 0)
+	{
+		_column--;
+	}
+	else if (_row > 0)
+	{
+		_column = VGA_WIDTH - 1;
+		_row--;
+	}
+	else
+	{
+		return ;
+	}
+	moveCursorTo(_column, _row);
+}
+
+void	Terminal::moveCursorNext()
+{
+	if (_column < VGA_WIDTH - 1)
+	{
+		_column++;
+	}
+	else if (_row < VGA_HEIGHT - 1)
+	{
+		_column = 0;
+		_row++;
+	}
+	else
+	{
+		return ;
+	}
+	moveCursorTo(_column, _row);
+}
+
+void Terminal::moveCursorUp()
+{
+	if (_row > 0)
+	{
+		_row--;
+		moveCursorTo(_column, _row);
+	}
+}
+
+void Terminal::moveCursorDown()
+{
+	if (_row < VGA_HEIGHT - 1)
+	{
+		_row++;
+		moveCursorTo(_column, _row);
+	}
+}

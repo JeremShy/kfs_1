@@ -28,6 +28,22 @@ extern "C" void kernel_main(void)
 			{
 				termManager.switchTerminal(2);
 			}
+			else if (comb.getCode() == 75) // Left
+			{
+				moveCursorPrec();
+			}
+			else if (comb.getCode() == 77) // Right
+			{
+				moveCursorNext();
+			}
+			else if (comb.getCode() == 72) // Up
+			{
+				moveCursorUp();
+			}
+			else if (comb.getCode() == 80) // Down
+			{
+				moveCursorDown();
+			}
 		}
 	}
 }

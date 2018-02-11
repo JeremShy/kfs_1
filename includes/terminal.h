@@ -39,6 +39,11 @@ public:
 
 	void	enable();
 	void	disable();
+
+	void	moveCursorPrec();
+	void	moveCursorNext();
+	void	moveCursorUp();
+	void	moveCursorDown();
 };
 
 #endif
